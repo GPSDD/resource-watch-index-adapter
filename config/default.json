@@ -17,5 +17,5 @@
         "dataSourceUrl": "https://data.resourcewatch.org/indicator/dataset-id",
         "dataSourceEndpoint": "https://api.resourcewatch.org/v1/download?sql=select%20*%20from%20:dataset-id"
     },
-    "cron": "00 * * * * *"
+    "cron": "00 0 1 * * *"
 }

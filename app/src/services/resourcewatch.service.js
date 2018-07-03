@@ -23,6 +23,7 @@ const ACCEPTED_LICENSE_STRINGS = [
 class RWIndexService {
 
     static async cronUpdate() {
+        const timeout = ms => new Promise(res => setTimeout(res, ms))
         try {
             logger.info('Running cron update');
             logger.debug('Obtaining datasets');
@@ -36,6 +37,7 @@ class RWIndexService {
                     try {
                         const dataset = datasets.data[i].attributes;
                         dataset.id = datasets.data[i].id;
+                        await timeout(1000);
                         await RWIndexService.register(dataset, dataset.userId, true);
                     } catch (err) {
                         logger.error('Error updating dataset', err);
