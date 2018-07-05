@@ -2,7 +2,7 @@
 
 
 This repository is the microservice that implements the Resource Watch Index Adapter
-funcionality
+functionality
 
 1. [Getting Started](#getting-started)
 
@@ -35,6 +35,15 @@ It is necessary to define these environment variables:
 * CT_URL => Control Tower URL
 * NODE_ENV => Environment (prod, staging, dev)
 
+### Cron task
+
+This component executes a periodic task that updates the metadata of each indexed RW dataset. The task is bootstrapped  
+[when the application server starts](https://github.com/GPSDD/resource-watch-index-adapter/blob/master/app/src/app.js#L19). 
+The task's implementation can be found on `app/src/cron/cron` and the configuration is loaded from the 
+[config files](https://github.com/GPSDD/resource-watch-index-adapter/blob/master/config/default.json#L18)
+
+
+
 ## Field correspondence
 
 
@@ -52,3 +61,19 @@ It is necessary to define these environment variables:
 | license                   | license               |               |
 | info                      | info                  |               |
 | status                    |                       | 'published'   |
+
+
+## Dataset tagging strategy
+
+
+### Taxonomy
+
+RW datasets have tags associated with them, which this connector uses to tag the index datasets.
+Additionally, each RW dataset is tagged with the "Resource Watch API" tag, and a tag to match 
+[the RW API application to which they belong](https://github.com/GPSDD/resource-watch-index-adapter/blob/b5c32ee91018b60df56048b8df2b303787796bba/app/src/services/resourcewatch.service.js#L101).
+
+### Graph
+
+The RW API uses a graph taxonomy that is very similar to the one use in API Highways, so a string comparison based match
+is attempted between RW API graph terms and AH API graph terms. 
+

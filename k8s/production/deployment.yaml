@@ -34,7 +34,7 @@ spec:
           - name: LOCAL_URL
             value: http://{name}.default.svc.cluster.local:3011
           - name: CRON_PATTERN
-            value: "00 0 1  * * *"
+            value: "00 0 1  * * 1"
           - name: CT_URL
             valueFrom:
                 secretKeyRef:
